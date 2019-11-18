@@ -1,6 +1,8 @@
 <template>
-  <div class="">
-    fdlfjsl
+  <div class="main">
+    <input type="radio">租赁
+    <br>
+    <input type="radio">买卖
   </div>
 </template>
 
@@ -14,7 +16,7 @@ export default {
 </script>
 
 <style scoped>
-  div {
-    color: green;
+  .main{
+    color: blue;
   }
 </style>

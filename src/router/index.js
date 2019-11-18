@@ -1,21 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import q123 from '@/components/123'
+import home from '@/components/home'
+import type from '@/components/type'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/hello',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/home',
+      name: 'home',
+      component: home
     },
     {
-      path: '/q123',
-      name: 'q123',
-      component: q123
+      path: '/type',
+      name: 'type',
+      component: type
+    },
+    {
+      path: '*',
+      redirect: {
+        name: 'home'
+      }
     }
   ]
 })
