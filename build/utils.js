@@ -40,7 +40,7 @@ exports.cssLoaders = function (options) {
   function generateLoaders (loader, loaderOptions) {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader, px2remLoader] : [cssLoader, px2remLoader]
 
-    if (loader) {
+    if (loader) {[]
       loaders.push({
         loader: loader + '-loader',
         options: Object.assign({}, loaderOptions, {
