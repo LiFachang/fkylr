@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'lib-flexible/flexible.js'
-import '@/assets/reset.css'
+import './assets/css/common.scss'
 import { ajaxGet, ajaxPost } from "./httpRequest"
 
 Vue.prototype.$ajaxGet = ajaxGet

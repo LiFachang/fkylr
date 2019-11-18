@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/home'
 import type from '@/components/type'
+import stepOne from '@/components/stepOne'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/type',
       name: 'type',
       component: type
+    },
+    {
+      path: '/stepOne',
+      name: 'stepOne',
+      component: stepOne
     },
     {
       path: '*',

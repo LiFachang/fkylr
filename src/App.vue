@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <div><img src="./assets/img/loading.svg" alt=""></div>
+    <div id="loading">
+      <img src="./assets/img/loading.svg" alt="">
+      <p>加载中...</p>
+    </div>
     <router-view/>
   </div>
 </template>
