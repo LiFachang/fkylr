@@ -1,5 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
+import Bus from '../bus'
 
 // 配置请求默认项
 axios.defaults = {
@@ -11,6 +12,7 @@ axios.defaults = {
 // 设置请求拦截器
 axios.interceptors.request.use(config => {
   // 可在这里加请求数据的动效loading
+  Bus.$emit('loading', '加载中...')
   return config;
 }, error => {
   return new Promise.reject(error);
@@ -18,6 +20,7 @@ axios.interceptors.request.use(config => {
 // 设置响应拦截器
 axios.interceptors.response.use(res => {
   // 在这里取消请求数据的动效loading
+  Bus.$emit('unloading')
   return res.data
 }, error => {
   // 在这里取消请求数据的动效loading

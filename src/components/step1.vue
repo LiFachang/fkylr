@@ -74,14 +74,14 @@ export default {
     // })
   },
   methods: {
-    request () {
-      let params = {
-        id: 1
-      }
-      this.$ajaxGet('/123', params).then((res) => {
-        console.log(res)
-      })
-    }
+    // request () {
+    //   let params = {
+    //     id: 1
+    //   }
+    //   this.$ajaxGet('/123', params).then((res) => {
+    //     console.log(res)
+    //   })
+    // }
 
   }
 }

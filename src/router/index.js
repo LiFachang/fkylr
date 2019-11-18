@@ -1,33 +1,28 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '@/components/home'
-import type from '@/components/type'
-import step1 from '@/components/step1'
+const views = name => () => import(`@/components/${name}`)
 
 Vue.use(Router)
 
+const arrRoutes = [
+  'home',
+  'type',
+  'step1',
+  'step2'
+]
+const routes = []
+arrRoutes.forEach((item, index) => {
+  routes.push({
+    path: `/${item}`,
+    name: `${item}`,
+    component: views(`${item}`)
+  })
+})
+routes.push({
+  path: '*',
+  redirect: {name: 'home'}
+})
+
 export default new Router({
-  routes: [
-    {
-      path: '/home',
-      name: 'home',
-      component: home
-    },
-    {
-      path: '/type',
-      name: 'type',
-      component: type
-    },
-    {
-      path: '/step1',
-      name: 'step1',
-      component: step1
-    },
-    {
-      path: '*',
-      redirect: {
-        name: 'home'
-      }
-    }
-  ]
+  routes
 })
