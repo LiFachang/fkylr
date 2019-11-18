@@ -61,6 +61,28 @@ export default {
   data () {
     return {
     }
+  },
+  methods: {
+    mounted (){
+      let url = ''
+      let params = {
+        currentUserId: '',
+        id: '',
+        type: 0
+      }
+      this.$ajaxPost(url, params).then((res) => {
+        console.log(res)
+      })
+    },
+    request () {
+      let params = {
+        id: 1
+      }
+      this.$ajaxGet('/123', params).then((res) => {
+        console.log(res)
+      })
+    }
+
   }
 }
 </script>
