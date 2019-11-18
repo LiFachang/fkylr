@@ -17,6 +17,7 @@ export default {
 
 <style scoped>
   .main{
-    color: blue;
+    font-size: 28px;
+    color: #FDC915;
   }
 </style>
