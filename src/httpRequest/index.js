@@ -50,7 +50,7 @@ export const ajaxPost = (url, params, responseType) => {
     axios({
       method: 'post',
       url: url,
-      data: qs(params),
+      data: params,
       // responseType: responseType || 'json'
     }).then(res => {
       resolve(res)
