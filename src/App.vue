@@ -4,18 +4,22 @@
       <img src="./assets/img/loading.svg" alt="">
       <p>{{loadingTxt}}</p>
     </div>
+    <alert v-if="showAlert" :msg="alertMsg"></alert>
     <router-view/>
   </div>
 </template>
 
 <script>
 import Bus from './bus'
+import alert from '../src/components/common/alert'
 export default {
   name: 'App',
   data () {
     return {
       loading: false,
-      loadingTxt: '加载中...'
+      loadingTxt: '加载中...',
+      showAlert: false,
+      alertMsg: ''
     }
   },
   mounted () {
@@ -27,8 +31,19 @@ export default {
       this.loading = false
       this.loadingTxt = '加载中...'
     })
+    Bus.$on('showAlert', (txt) => {
+      this.showAlert = true
+      this.alertMsg = txt
+    })
+    Bus.$on('hideAlert', () => {
+      this.showAlert = false
+      this.alertMsg = ''
+    })
   },
   methods: {
+  },
+  components: {
+    alert
   }
 }
 </script>

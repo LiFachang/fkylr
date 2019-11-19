@@ -2,6 +2,13 @@ import axios from 'axios'
 import qs from 'qs'
 import Bus from '../bus'
 
+let API_HOST = ''
+if (process.env.NODE_ENV === 'production') {
+  API_HOST = 'http://5iwork.bacic5i5j.com/mobile-sales-restful/house_customer/house_source_insert'
+} else {
+  API_HOST = 'http://uat.cbs.bacic5i5j.com/mobile-sales-restful/house_customer/house_source_insert'
+}
+
 // 配置请求默认项
 axios.defaults = {
   timeout: 10000,
@@ -33,7 +40,7 @@ axios.interceptors.response.use(res => {
  */
 export const ajaxGet = (url, params) => {
   return new Promise((resolve, reject) => {
-    axios.get(url, {
+    axios.get(API_HOST + url, {
       params: params
     }).then(res => {
       resolve(res)
@@ -52,7 +59,7 @@ export const ajaxPost = (url, params, responseType) => {
   return new Promise((resolve, reject) => {
     axios({
       method: 'post',
-      url: url,
+      url: API_HOST + url,
       data: params,
       // responseType: responseType || 'json'
     }).then(res => {
@@ -69,9 +76,9 @@ export const ajaxPost = (url, params, responseType) => {
 export const ajaxAll = (queryList) => {
   let query = queryList.map((item) => {
     if (item.method === 'get') {
-      return fetchGet(item.url, item.params)
+      return ajaxGet(item.url, item.params)
     } else {
-      return fetchPost(item.url, item.params, item.responseType)
+      return ajaxPost(item.url, item.params, item.responseType)
     }
   });
   return new Promise((resolve, reject) => {
