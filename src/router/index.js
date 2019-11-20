@@ -36,12 +36,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
-  if (process.env.NODE_ENV !== 'production') {
-    to.query.userId = '94056'
-    to.query.compId = '1'
-  }
-  if (to.query.userId != '' && to.query.compId != '' && to.name == 'home') {
+  if (to.name == 'home' && to.query.userId != '' && to.query.compId != '') {
     let userId = to.query.userId
     let compId = to.query.compId
     sessionStorage.setItem('userId', userId)

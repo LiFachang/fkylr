@@ -40,6 +40,22 @@
         xiaoqu: {
           id: '',
           name: ''
+        },
+        dongzuo: {
+          name: '',
+          id: ''
+        },
+        danyuan: {
+          name: '',
+          id: ''
+        },
+        louceng: {
+          name: '',
+          id: ''
+        },
+        menpaihao: {
+          name: '',
+          id: ''
         }
       }
     },
@@ -103,6 +119,40 @@
             }
             this.$ajaxPost('/query_houses_info', params).then((res) => {
               console.log(res)
+              this.resultList = res
+            })
+            break
+          case 2:
+            params = {
+              currentUserId: sessionStorage.getItem('userId'),
+              id: JSON.parse(sessionStorage.getItem('dongzuo')).id,
+              type: 1
+            }
+            this.$ajaxPost('/query_houses_info', params).then((res) => {
+              console.log(res)
+              this.resultList = res
+            })
+            break
+          case 3:
+            params = {
+              currentUserId: sessionStorage.getItem('userId'),
+              id: JSON.parse(sessionStorage.getItem('danyuan')).id,
+              type: 2
+            }
+            this.$ajaxPost('/query_houses_info', params).then((res) => {
+              console.log(res)
+              this.resultList = res
+            })
+            break
+          case 4:
+            params = {
+              currentUserId: sessionStorage.getItem('userId'),
+              id: JSON.parse(sessionStorage.getItem('louceng')).id,
+              type: 3
+            }
+            this.$ajaxPost('/query_houses_info', params).then((res) => {
+              console.log(res)
+              this.resultList = res
             })
             break
         }
@@ -113,12 +163,47 @@
         this.resultList = []
         switch (Number(this.currentIndex)) {
           case 0:
-            this.xiaoqu.id = this.choosedId = id
-            this.xiaoqu.name = this.choosedId = name
+            this.xiaoqu.id = id
+            this.xiaoqu.id = '19964401'
+            this.xiaoqu.name = name
             sessionStorage.setItem('xiaoqu', JSON.stringify(this.xiaoqu))
             this.choosedResultTxt += this.xiaoqu.name
             this.currentIndex = 1
             this.doSearch()
+            break
+          case 1:
+            this.dongzuo.id = id
+            this.dongzuo.name = name
+            sessionStorage.setItem('dongzuo', JSON.stringify(this.dongzuo))
+            this.choosedResultTxt += this.dongzuo.name
+            this.currentIndex = 2
+            this.doSearch()
+            break
+          case 2:
+            this.danyuan.id = id
+            this.danyuan.name = name
+            sessionStorage.setItem('danyuan', JSON.stringify(this.danyuan))
+            this.choosedResultTxt += this.danyuan.name
+            this.currentIndex = 3
+            this.doSearch()
+            break
+          case 3:
+            this.louceng.id = id
+            this.louceng.name = name
+            sessionStorage.setItem('louceng', JSON.stringify(this.louceng))
+            this.choosedResultTxt += this.louceng.name
+            this.currentIndex = 4
+            this.doSearch()
+            break
+          case 4:
+            this.menpaihao.id = id
+            this.menpaihao.name = name
+            sessionStorage.setItem('menpaihao', JSON.stringify(this.menpaihao))
+            this.choosedResultTxt += this.menpaihao.name
+            this.currentIndex = ''
+            this.$router.push({
+              name: 'step1'
+            })
             break
         }
       }

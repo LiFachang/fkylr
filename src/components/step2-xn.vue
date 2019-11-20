@@ -12,6 +12,23 @@
     </div>
     <p class="title-2 title-required">喷涂地址</p>
     <div class="big-input-box">
+      <span class="">楼盘</span>
+      <input type="text">
+    </div>
+    <div class="big-input-2 flex">
+      <div>
+        <span>栋座</span>
+        <input type="text" placeholder="请填写">
+      </div>
+      <div>
+        <select>
+          <option value="">请选择</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+      </div>
+    </div>
+    <div class="big-input-box">
       <span class="required">证载地址</span>
       <span>北京市朝阳区广顺北大街20号</span>
     </div>
@@ -341,6 +358,25 @@ export default {
       flex: 1;
       padding: 0 10px;
       appearance: none;
+    }
+  }
+  .big-input-2{
+    width: 655px;
+    margin: 30px auto;
+    align-items: center;
+    justify-content: space-between;
+    &>div{
+      height: 78px;
+      border-radius: 39px;
+      border: 1px solid #E0E0E0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 30px;
+    }
+    &>div input{
+      flex: 1;
+      padding: 0 30px;
     }
   }
 </style>

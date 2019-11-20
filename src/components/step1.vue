@@ -42,7 +42,7 @@
         <i class="icon-jt icon-right"></i>
       </div>
     </div>
-    <div class="bottom-btn">下一步</div>
+    <router-link :to="{name: 'step2'}" tag="div" class="bottom-btn">下一步</router-link>
   </div>
 </template>
 
