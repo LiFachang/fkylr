@@ -70,7 +70,6 @@
 </template>
 
 <script>
-import Bus from '../bus'
 export default {
   data () {
     return {
@@ -137,27 +136,6 @@ export default {
       flex: 1;
       padding: 0 10px;
       appearance: none;
-    }
-  }
-  .bottom-btn{
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    line-height: 100px;
-    background: #fdc915;
-    font-size: 32px;
-    text-align: center;
-    display: flex;
-    &>div{flex: 1}
-    & .prev{
-      background: #fff;
-      border-top: 2px solid #EEEFF4;
-    }
-    & .next{
-      background: #fdc915;
     }
   }
 </style>

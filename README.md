@@ -21,15 +21,8 @@ npm run build --report
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 *******************************************************************
-git命令
-git clone https://github.com/LiFachang/fkylr.git
-根目录
-npm install
-npm run dev
-git status查看状态
-git branch查看当前所在分支
-git pull origin master
-写
-git commit -am '备注'
-git pull origin master
-git push origin master
+this.$bus.$emit('showTips', {txt: '提示内容', times: 2500}) // 默认2500
+this.$bus.$emit('showTips', {txt: '提示内容'})
+
+this.$bus.$emit('showAlert', '弹窗内容')
+

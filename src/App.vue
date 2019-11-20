@@ -1,17 +1,24 @@
 <template>
   <div id="app">
-    <div id="loading" v-if="loading">
-      <img src="./assets/img/loading.svg" alt="">
-      <p>{{loadingTxt}}</p>
-    </div>
-    <alert v-if="showAlert" :msg="alertMsg"></alert>
+    <transition name="fade">
+      <div id="loading" v-if="loading">
+        <img src="./assets/img/loading.svg" alt="">
+        <p>{{loadingTxt}}</p>
+      </div>
+    </transition>
+    <transition name="fade">
+      <tips v-if="showTips" :msg="tipsMsg"></tips>
+    </transition>
+    <transition name="scale">
+      <alert v-if="showAlert" :msg="alertMsg"></alert>
+    </transition>
     <router-view/>
   </div>
 </template>
 
 <script>
-import Bus from './bus'
 import alert from '../src/components/common/alert'
+import tips from '../src/components/common/tips'
 export default {
   name: 'App',
   data () {
@@ -19,31 +26,42 @@ export default {
       loading: false,
       loadingTxt: '加载中...',
       showAlert: false,
-      alertMsg: ''
+      alertMsg: '',
+      showTips: false,
+      tipsMsg: ''
     }
   },
   mounted () {
-    Bus.$on('loading', (txt) => {
+    this.$bus.$on('loading', (txt) => {
       this.loading = true
       this.loadingTxt = txt
     })
-    Bus.$on('unloading', () => {
+    this.$bus.$on('unloading', () => {
       this.loading = false
       this.loadingTxt = '加载中...'
     })
-    Bus.$on('showAlert', (txt) => {
+    this.$bus.$on('showAlert', (txt) => {
       this.showAlert = true
       this.alertMsg = txt
     })
-    Bus.$on('hideAlert', () => {
+    this.$bus.$on('hideAlert', () => {
       this.showAlert = false
       this.alertMsg = ''
+    })
+    this.$bus.$on('showTips', ({txt, times = 2500}) => {
+      this.showTips = true
+      this.tipsMsg = txt
+      setTimeout(() => {
+        this.showTips = false
+        this.tipsMsg = ''
+      }, times)
     })
   },
   methods: {
   },
   components: {
-    alert
+    alert,
+    tips
   }
 }
 </script>
@@ -76,5 +94,17 @@ export default {
     to {
       transform: rotate(360deg);
     }
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+  .scale-enter-active, .scale-leave-active {
+    transition: transform .2s;
+  }
+  .scale-enter, .scale-leave-to {
+    transform: scale(0);
   }
 </style>

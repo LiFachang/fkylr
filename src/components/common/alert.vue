@@ -8,12 +8,11 @@
 </template>
 
 <script>
-  import Bus from '../../bus'
   export default {
     props: ['msg'],
     methods: {
       closeAlert () {
-        Bus.$emit('hideAlert')
+        this.$bus.$emit('hideAlert')
       }
     }
   }
@@ -27,12 +26,12 @@
     bottom: 0;
     left: 0;
     z-index: 9;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 28px;
+    font-size: 30px;
     color: #000;
     &>div{
       background: #fff;

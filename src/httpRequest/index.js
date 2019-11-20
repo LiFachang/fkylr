@@ -6,12 +6,12 @@ let API_HOST = ''
 if (process.env.NODE_ENV === 'production') {
   API_HOST = 'http://5iwork.bacic5i5j.com/mobile-sales-restful/house_customer/house_source_insert'
 } else {
-  API_HOST = 'http://uat.cbs.bacic5i5j.com/mobile-sales-restful/house_customer/house_source_insert'
+  API_HOST = '/apis'
 }
 
 // 配置请求默认项
 axios.defaults = {
-  timeout: 10000,
+  timeout: 100000,
   headers: {
     'Conent-Type': 'application/json'
   }
@@ -28,7 +28,20 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(res => {
   // 在这里取消请求数据的动效loading
   Bus.$emit('unloading')
-  return res.data
+  if (res.status != 200) {
+    alert(res.statusText)
+    return Promise.reject(res.statusText)
+  }
+  if (res.data.code != 0) {
+    alert(res.data.msg)
+    return Promise.reject(res.data.msg)
+  }
+  if (res.data.data.code != 0) {
+    alert(res.data.data.msg)
+    return Promise.reject(res.data.data.msg)
+  }
+
+  return res.data.data.data
 }, error => {
   // 在这里取消请求数据的动效loading
   return Promise.reject(`响应code：${error.status}\n响应结果：${error.response}`)

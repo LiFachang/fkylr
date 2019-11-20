@@ -6,10 +6,11 @@ import router from './router'
 import './assets/css/common.scss'
 import 'lib-flexible/flexible.js'
 import { ajaxGet, ajaxPost } from "./httpRequest"
-
+import Bus from './bus'
 
 Vue.prototype.$ajaxGet = ajaxGet
 Vue.prototype.$ajaxPost = ajaxPost
+Vue.prototype.$bus = Bus
 
 Vue.config.productionTip = false
 
