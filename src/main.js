@@ -7,6 +7,9 @@ import './assets/css/common.scss'
 import 'lib-flexible/flexible.js'
 import { ajaxGet, ajaxPost } from "./httpRequest"
 import Bus from './bus'
+import '../src/assets/js/resize'
+import AwesomePicker from 'vue-awesome-picker'
+Vue.use(AwesomePicker)
 
 Vue.prototype.$ajaxGet = ajaxGet
 Vue.prototype.$ajaxPost = ajaxPost

@@ -28,6 +28,47 @@
         </select>
       </div>
     </div>
+    <div class="big-input-2 flex">
+      <div>
+        <span>单元</span>
+        <input type="text" placeholder="请填写">
+      </div>
+      <div>
+        <select>
+          <option value="">请选择</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+      </div>
+    </div>
+    <div class="big-input-2 flex">
+      <div>
+        <span>楼层</span>
+        <input type="text" placeholder="请填写">
+      </div>
+      <div>
+        <select>
+          <option value="">请选择</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+      </div>
+    </div>
+    <div class="big-input-2 flex">
+      <div>
+        <span>门牌号</span>
+        <input type="text" placeholder="请填写">
+      </div>
+      <div>
+        <select>
+          <option value="">请选择</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+      </div>
+    </div>
+    <p class="title-2 title-required">证载地址</p>
+
     <div class="big-input-box">
       <span class="required">证载地址</span>
       <span>北京市朝阳区广顺北大街20号</span>
@@ -284,15 +325,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .main{
-    padding: 0 30px;
-  }
-  .step-img{
-    display: block;
-    width: 525px;
-    height: 40px;
-    margin: 40px auto;
-  }
   .hx-box{
     flex-wrap: wrap;
   }
@@ -319,47 +351,6 @@ export default {
     display: flex;
     align-items: center;
   }
-  input[type='checkbox']{
-    appearance: none;
-    width: 40px;
-    height: 40px;
-    background: #F5F5F5;
-    border-radius: 8px;
-  }
-  input[type='checkbox']:checked{
-    background: #fdc915 url("../assets/img/duihao.png") center no-repeat;
-    background-size: 22px 16px;
-  }
-  .big-input-box{
-    width: 655px;
-    height: 78px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 26px;
-    margin: 30px auto;
-    border: 1px solid #E0E0E0;
-    border-radius: 39px;
-    padding: 0 30px;
-    & .required:before{
-      content: '*';
-      color: red;
-      margin-right: 10px;
-    }
-    &>span.required{
-      width: 140px;
-    }
-    &>input{
-      flex: 1;
-      font-size: 28px;
-      padding: 0 10px;
-    }
-    &>select{
-      flex: 1;
-      padding: 0 10px;
-      appearance: none;
-    }
-  }
   .big-input-2{
     width: 655px;
     margin: 30px auto;
@@ -374,9 +365,11 @@ export default {
       justify-content: flex-start;
       padding: 0 30px;
     }
+    &>div>span{
+      width: 80px;
+    }
     &>div input{
       flex: 1;
-      padding: 0 30px;
     }
   }
 </style>

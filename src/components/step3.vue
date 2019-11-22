@@ -113,15 +113,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .main{
-    padding: 0 30px;
-  }
-  .step-img{
-    display: block;
-    width: 525px;
-    height: 40px;
-    margin: 40px auto;
-  }
   .add-btn{
     width: 393px;
     height: 60px;
@@ -153,62 +144,6 @@ export default {
     & table td>span:first-child{
       color: #888;
       padding-right: 10px;
-    }
-  }
-  .hx-box{
-    flex-wrap: wrap;
-  }
-  .select-box{
-    margin: 0 20px 20px 0;
-  }
-  .select-box select{
-    border: 1px solid #E0E0E0;
-    width: 178px;
-    height: 60px;
-    border-radius: 30px;
-    text-align: center;
-    text-align-last: center;
-    appearance: none;
-  }
-  .select-box option{
-    text-align: center;
-    text-align-last: center;
-  }
-  .cx-box{
-    justify-content: space-around;
-  }
-  .lable-checkbox {
-    display: flex;
-    align-items: center;
-  }
-  .big-input-box{
-    width: 655px;
-    height: 78px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 26px;
-    margin: 30px auto;
-    border: 1px solid #E0E0E0;
-    border-radius: 39px;
-    padding: 0 30px;
-    & .required:before{
-      content: '*';
-      color: red;
-      margin-right: 10px;
-    }
-    &>span.required{
-      width: auto;
-    }
-    &>input{
-      flex: 1;
-      font-size: 28px;
-      padding: 0 10px;
-    }
-    &>select{
-      flex: 1;
-      padding: 0 10px;
-      appearance: none;
     }
   }
   .add-contact-box{

@@ -25,15 +25,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .main{
-    padding: 0 30px;
-  }
-  .step-img{
-    display: block;
-    width: 525px;
-    height: 40px;
-    margin: 40px auto;
-  }
   textarea{
     display: block;
     width: 655px;

@@ -79,18 +79,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .main{
-    padding: 0 30px;
-  }
-  .step-img{
-    display: block;
-    width: 525px;
-    height: 40px;
-    margin: 40px auto;
-  }
-  input[type='date']{
-    background: transparent;
-  }
   .big-input-box-tksj, .dkyh-box{
     width: 655px;
     margin: 0 auto;
@@ -104,35 +92,5 @@ export default {
   }
   .dkyh-box input{
     width: 100px;
-  }
-  .big-input-box{
-    width: 655px;
-    height: 78px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 26px;
-    margin: 30px auto;
-    border: 1px solid #E0E0E0;
-    border-radius: 39px;
-    padding: 0 30px;
-    & .required:before{
-      content: '*';
-      color: red;
-      margin-right: 10px;
-    }
-    &>span.required{
-      width: auto;
-    }
-    &>input{
-      flex: 1;
-      font-size: 28px;
-      padding: 0 10px;
-    }
-    &>select{
-      flex: 1;
-      padding: 0 10px;
-      appearance: none;
-    }
   }
 </style>

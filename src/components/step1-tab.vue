@@ -10,6 +10,7 @@
       </div>
       <span @click="doSearch(true)">确定</span>
     </div>
+    <div class="chooded-result">{{choosedResultTxt}}</div>
     <ul class="tab-box flex" @click="changeTab($event)">
       <li :class="currentIndex == 0 ? 'current' : ''" data-current-index="0">小区名称</li>
       <li :class="currentIndex == 1 ? 'current' : ''" data-current-index="1">楼盘栋座</li>
@@ -23,7 +24,6 @@
         <img src="../assets/img/icon-choose.png" alt="">
       </li>
     </ul>
-    <div class="chooded-result">{{choosedResultTxt}}</div>
     <div class="add-nx-btn">+ 添加虚拟房源</div>
   </div>
 </template>
@@ -36,59 +36,107 @@
         currentIndex: 0, //0小区1楼盘2单元3楼层4门牌号
         resultList: [], //搜索到的结果
         choosedId: '', //选择搜索到的结果的id
-        choosedResultTxt: '',
         xiaoqu: {
-          id: '',
-          name: ''
+          id: sessionStorage.getItem('xiaoqu') != null ? JSON.parse(sessionStorage.getItem('xiaoqu')).id : '',
+          name: sessionStorage.getItem('xiaoqu') != null ? JSON.parse(sessionStorage.getItem('xiaoqu')).name : ''
         },
         dongzuo: {
-          name: '',
-          id: ''
+          id: sessionStorage.getItem('dongzuo') != null ? JSON.parse(sessionStorage.getItem('dongzuo')).id : '',
+          name: sessionStorage.getItem('dongzuo') != null ? JSON.parse(sessionStorage.getItem('dongzuo')).name : ''
         },
         danyuan: {
-          name: '',
-          id: ''
+          id: sessionStorage.getItem('danyuan') != null ? JSON.parse(sessionStorage.getItem('danyuan')).id : '',
+          name: sessionStorage.getItem('danyuan') != null ? JSON.parse(sessionStorage.getItem('danyuan')).name : ''
         },
         louceng: {
-          name: '',
-          id: ''
+          id: sessionStorage.getItem('louceng') != null ? JSON.parse(sessionStorage.getItem('louceng')).id : '',
+          name: sessionStorage.getItem('louceng') != null ? JSON.parse(sessionStorage.getItem('louceng')).name : ''
         },
         menpaihao: {
-          name: '',
-          id: ''
+          id: sessionStorage.getItem('menpaihao') != null ? JSON.parse(sessionStorage.getItem('menpaihao')).id : '',
+          name: sessionStorage.getItem('menpaihao') != null ? JSON.parse(sessionStorage.getItem('menpaihao')).name : ''
         }
       }
     },
     mounted () {
       this.currentIndex = this.$route.query.currentIndex
+      switch (Number(this.currentIndex)) {
+        case 0:
+          if (this.xiaoqu.name != '') {
+            this.searchTxt = this.xiaoqu.name
+            this.choosedId = this.xiaoqu.id
+          }
+          break
+        case 1:
+          if (this.dongzuo.name != '') {
+            this.searchTxt = this.dongzuo.name
+            this.choosedId = this.dongzuo.id
+          }
+          break
+        case 2:
+          if (this.danyuan.name != '') {
+            this.searchTxt = this.danyuan.name
+            this.choosedId = this.danyuan.id
+          }
+          break
+        case 3:
+          if (this.louceng.name != '') {
+            this.searchTxt = this.louceng.name
+            this.choosedId = this.louceng.id
+          }
+          break
+        case 4:
+          if (this.menpaihao.name != '') {
+            this.searchTxt = this.menpaihao.name
+            this.choosedId = this.menpaihao.id
+          }
+          break
+      }
+      this.doSearch()
+    },
+    computed: {
+      choosedResultTxt () {
+        return this.xiaoqu.name + this.dongzuo.name + this.danyuan.name + this.louceng.name + this.menpaihao.name
+      }
     },
     methods: {
       changeTab (e) {
         this.resultList = []
         switch (Number(e.target.dataset.currentIndex)) {
           case 0:
-            if (sessionStorage.getItem('xiaoqu')) {
+            if (this.xiaoqu.name != '') {
+              this.searchTxt = this.xiaoqu.name
+              this.choosedId = this.xiaoqu.id
               this.currentIndex = 0
+              this.doSearch()
             }
             break
           case 1:
-            if (sessionStorage.getItem('xiaoqu') || sessionStorage.getItem('dongzuo')) {
+            if (this.xiaoqu.name != '' || this.dongzuo.name != '') {
+              this.choosedId = this.dongzuo.id
               this.currentIndex = 1
+              this.doSearch()
             }
             break
           case 2:
-            if ((sessionStorage.getItem('xiaoqu') && sessionStorage.getItem('dongzuo')) || sessionStorage.getItem('danyuan')) {
+            if ((this.xiaoqu.name != '' && this.dongzuo.name != '') || this.danyuan.name != '') {
+              this.choosedId = this.danyuan.id
               this.currentIndex = 2
+              this.doSearch()
             }
             break
           case 3:
-            if ((sessionStorage.getItem('xiaoqu') && sessionStorage.getItem('dongzuo') && sessionStorage.getItem('danyuan')) || sessionStorage.getItem('louceng')) {
+            if ((this.xiaoqu.name != '' && this.dongzuo.name != '' && this.danyuan.name != '') || this.louceng.name != '') {
+              this.choosedId = this.louceng.id
               this.currentIndex = 3
+              this.doSearch()
             }
             break
           case 4:
-            if ((sessionStorage.getItem('xiaoqu') && sessionStorage.getItem('dongzuo') && sessionStorage.getItem('danyuan') && sessionStorage.getItem('louceng')) || sessionStorage.getItem('menpaihao')) {
+            if ((this.xiaoqu.name != '' && this.dongzuo.name != '' && this.danyuan.name != '' && this.louceng.name != '') || this.menpaihao.name != '') {
+              this.choosedId = this.menpaihao.id
               this.currentIndex = 4
+              this.doSearch()
             }
             break
         }
@@ -105,6 +153,7 @@
               compId: sessionStorage.getItem('compId'),
               busiType: sessionStorage.getItem('busiType'),
               name: this.searchTxt,
+              sourceType: 1
             }
             this.$ajaxPost('/query_comm_name', params).then((res) => {
               console.log(res)
@@ -114,7 +163,7 @@
           case 1:
             params = {
               currentUserId: sessionStorage.getItem('userId'),
-              id: JSON.parse(sessionStorage.getItem('xiaoqu')).id,
+              id: this.xiaoqu.id,
               type: 0
             }
             this.$ajaxPost('/query_houses_info', params).then((res) => {
@@ -125,7 +174,7 @@
           case 2:
             params = {
               currentUserId: sessionStorage.getItem('userId'),
-              id: JSON.parse(sessionStorage.getItem('dongzuo')).id,
+              id: this.dongzuo.id,
               type: 1
             }
             this.$ajaxPost('/query_houses_info', params).then((res) => {
@@ -136,7 +185,7 @@
           case 3:
             params = {
               currentUserId: sessionStorage.getItem('userId'),
-              id: JSON.parse(sessionStorage.getItem('danyuan')).id,
+              id: this.danyuan.id,
               type: 2
             }
             this.$ajaxPost('/query_houses_info', params).then((res) => {
@@ -147,7 +196,7 @@
           case 4:
             params = {
               currentUserId: sessionStorage.getItem('userId'),
-              id: JSON.parse(sessionStorage.getItem('louceng')).id,
+              id: this.louceng.id,
               type: 3
             }
             this.$ajaxPost('/query_houses_info', params).then((res) => {
@@ -163,47 +212,87 @@
         this.resultList = []
         switch (Number(this.currentIndex)) {
           case 0:
-            this.xiaoqu.id = id
-            this.xiaoqu.id = '19964401'
-            this.xiaoqu.name = name
-            sessionStorage.setItem('xiaoqu', JSON.stringify(this.xiaoqu))
-            this.choosedResultTxt += this.xiaoqu.name
-            this.currentIndex = 1
-            this.doSearch()
+            if (id != this.xiaoqu.id && name != this.xiaoqu.name) {
+              this.xiaoqu.id = id
+              this.xiaoqu.name = name
+              sessionStorage.setItem('xiaoqu', JSON.stringify(this.xiaoqu))
+              let arr = ['dongzuo', 'danyuan', 'louceng', 'menpaihao']
+              arr.forEach((item, index) => {
+                sessionStorage.removeItem(`${item}`)
+                this[item]['id'] = ''
+                this[item]['name'] = ''
+              })
+              this.currentIndex = 1
+              this.doSearch()
+            } else {
+              this.currentIndex = 1
+            }
             break
           case 1:
-            this.dongzuo.id = id
-            this.dongzuo.name = name
-            sessionStorage.setItem('dongzuo', JSON.stringify(this.dongzuo))
-            this.choosedResultTxt += this.dongzuo.name
-            this.currentIndex = 2
-            this.doSearch()
+            if (id != this.dongzuo.id && name != this.dongzuo.name) {
+              this.dongzuo.id = id
+              this.dongzuo.name = name
+              sessionStorage.setItem('dongzuo', JSON.stringify(this.dongzuo))
+              let arr = ['danyuan', 'louceng', 'menpaihao']
+              arr.forEach((item, index) => {
+                sessionStorage.removeItem(`${item}`)
+                this[item]['id'] = ''
+                this[item]['name'] = ''
+              })
+              this.currentIndex = 2
+              this.doSearch()
+            } else {
+              this.currentIndex = 2
+            }
             break
           case 2:
-            this.danyuan.id = id
-            this.danyuan.name = name
-            sessionStorage.setItem('danyuan', JSON.stringify(this.danyuan))
-            this.choosedResultTxt += this.danyuan.name
-            this.currentIndex = 3
-            this.doSearch()
+            if (id != this.danyuan.id && name != this.danyuan.name) {
+              this.danyuan.id = id
+              this.danyuan.name = name
+              sessionStorage.setItem('danyuan', JSON.stringify(this.danyuan))
+              let arr = ['louceng', 'menpaihao']
+              arr.forEach((item, index) => {
+                sessionStorage.removeItem(`${item}`)
+                this[item]['id'] = ''
+                this[item]['name'] = ''
+              })
+              this.currentIndex = 3
+              this.doSearch()
+            } else {
+              this.currentIndex = 3
+            }
             break
           case 3:
-            this.louceng.id = id
-            this.louceng.name = name
-            sessionStorage.setItem('louceng', JSON.stringify(this.louceng))
-            this.choosedResultTxt += this.louceng.name
-            this.currentIndex = 4
-            this.doSearch()
+            if (id != this.louceng.id && name != this.louceng.name) {
+              this.louceng.id = id
+              this.louceng.name = name
+              sessionStorage.setItem('louceng', JSON.stringify(this.louceng))
+              let arr = ['menpaihao']
+              arr.forEach((item, index) => {
+                sessionStorage.removeItem(`${item}`)
+                this[item]['id'] = ''
+                this[item]['name'] = ''
+              })
+              this.currentIndex = 4
+              this.doSearch()
+            } else {
+              this.currentIndex = 4
+            }
             break
           case 4:
-            this.menpaihao.id = id
-            this.menpaihao.name = name
-            sessionStorage.setItem('menpaihao', JSON.stringify(this.menpaihao))
-            this.choosedResultTxt += this.menpaihao.name
-            this.currentIndex = ''
-            this.$router.push({
-              name: 'step1'
-            })
+            if (id != this.menpaihao.id && name != this.menpaihao.name) {
+              this.menpaihao.id = id
+              this.menpaihao.name = name
+              sessionStorage.setItem('menpaihao', JSON.stringify(this.menpaihao))
+              this.currentIndex = ''
+              this.$router.push({
+                name: 'step1'
+              })
+            } else {
+              this.$router.push({
+                name: 'step1'
+              })
+            }
             break
         }
       }
@@ -212,9 +301,6 @@
 </script>
 
 <style scoped lang="scss">
-  .main{
-    padding: 0 30px;
-  }
   .search-box{
     margin: 30px auto;
     align-items: center;
@@ -297,6 +383,6 @@
     border-radius: 50px;
   }
   .chooded-result{
-    padding: 30px;
+    padding: 0 30px 30px;
   }
 </style>
