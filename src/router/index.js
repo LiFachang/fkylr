@@ -36,11 +36,16 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name == 'home' && to.query.userId != '' && to.query.compId != '') {
-    let userId = to.query.userId
-    let compId = to.query.compId
-    sessionStorage.setItem('userId', userId)
-    sessionStorage.setItem('compId', compId)
+  if (process.env.NODE_ENV !== 'production') {
+    sessionStorage.setItem('userId', '94056')
+    sessionStorage.setItem('compId', '1')
+  } else {
+    if (to.name == 'home' && to.query.userId != '' && to.query.compId != '') {
+      let userId = to.query.userId
+      let compId = to.query.compId
+      sessionStorage.setItem('userId', userId)
+      sessionStorage.setItem('compId', compId)
+    }
   }
   next()
 })

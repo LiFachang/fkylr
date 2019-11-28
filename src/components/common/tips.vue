@@ -1,13 +1,18 @@
 <template>
-  <div class="tips">
-    <p>{{msg}}</p>
-  </div>
+  <transition name="fade">
+    <div class="tips" v-if="show">
+      <p>{{msg}}</p>
+    </div>
+  </transition>
 </template>
 
 <script>
   export default {
-    props: ['msg'],
-    methods: {
+    data () {
+      return {
+        show: true,
+        msg: ''
+      }
     }
   }
 </script>

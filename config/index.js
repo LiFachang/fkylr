@@ -13,7 +13,7 @@ module.exports = {
     proxyTable: {
       '/apis': {
         // 测试环境
-        target: 'http://uat.cbs.bacic5i5j.com/mobile-sales-restful/house_customer/house_source_insert',  // 接口域名
+        target: 'http://uat.cbs.bacic5i5j.com/mobile-sales-restful',  // 接口域名
         changeOrigin: true,  //是否跨域
         pathRewrite: {
           '^/apis': ''   //需要rewrite重写的,

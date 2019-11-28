@@ -42,7 +42,7 @@
         <i class="icon-jt icon-right"></i>
       </div>
     </div>
-    <router-link :to="{name: 'step2'}" tag="div" class="bottom-btn">下一步</router-link>
+    <div class="bottom-btn" @click="nextStep">下一步</div>
   </div>
 </template>
 
@@ -87,6 +87,11 @@
       })
     },
     methods: {
+      nextStep () {
+        this.$alert('1234').then(() => {
+          console.log(1)
+        })
+      },
       navTo (name, index, bool) {
         if (!bool) {return}
         this.$router.push({

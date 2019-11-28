@@ -65,6 +65,7 @@
           if (this.xiaoqu.name != '') {
             this.searchTxt = this.xiaoqu.name
             this.choosedId = this.xiaoqu.id
+            this.doSearch()
           }
           break
         case 1:
@@ -72,27 +73,41 @@
             this.searchTxt = this.dongzuo.name
             this.choosedId = this.dongzuo.id
           }
+          if (this.xiaoqu.name != '' && this.dongzuo.name == '') {
+            this.doSearch()
+          }
           break
         case 2:
           if (this.danyuan.name != '') {
             this.searchTxt = this.danyuan.name
             this.choosedId = this.danyuan.id
+            this.doSearch()
+          }
+          if (this.xiaoqu.name != '' && this.dongzuo.name != '' && this.danyuan.name == '') {
+            this.doSearch()
           }
           break
         case 3:
           if (this.louceng.name != '') {
             this.searchTxt = this.louceng.name
             this.choosedId = this.louceng.id
+            this.doSearch()
+          }
+          if (this.xiaoqu.name != '' && this.dongzuo.name != '' && this.danyuan.name != '' && this.louceng.name == '') {
+            this.doSearch()
           }
           break
         case 4:
           if (this.menpaihao.name != '') {
             this.searchTxt = this.menpaihao.name
             this.choosedId = this.menpaihao.id
+            this.doSearch()
+          }
+          if (this.xiaoqu.name != '' && this.dongzuo.name != '' && this.danyuan.name != '' && this.louceng.name != '' && this.menpaihao.name == '') {
+            this.doSearch()
           }
           break
       }
-      this.doSearch()
     },
     computed: {
       choosedResultTxt () {
@@ -155,8 +170,7 @@
               name: this.searchTxt,
               sourceType: 1
             }
-            this.$ajaxPost('/query_comm_name', params).then((res) => {
-              console.log(res)
+            this.$http.post('/house_customer/house_source_insert/queryCommunityName', params).then((res) => {
               this.resultList = res
             })
             break
@@ -166,8 +180,7 @@
               id: this.xiaoqu.id,
               type: 0
             }
-            this.$ajaxPost('/query_houses_info', params).then((res) => {
-              console.log(res)
+            this.$http.post('/house_customer/house_source_insert/findBuildingListFromApp', params).then((res) => {
               this.resultList = res
             })
             break
@@ -177,8 +190,7 @@
               id: this.dongzuo.id,
               type: 1
             }
-            this.$ajaxPost('/query_houses_info', params).then((res) => {
-              console.log(res)
+            this.$http.post('/house_customer/house_source_insert/findBuildingListFromApp', params).then((res) => {
               this.resultList = res
             })
             break
@@ -188,8 +200,7 @@
               id: this.danyuan.id,
               type: 2
             }
-            this.$ajaxPost('/query_houses_info', params).then((res) => {
-              console.log(res)
+            this.$http.post('/house_customer/house_source_insert/findBuildingListFromApp', params).then((res) => {
               this.resultList = res
             })
             break
@@ -199,8 +210,7 @@
               id: this.louceng.id,
               type: 3
             }
-            this.$ajaxPost('/query_houses_info', params).then((res) => {
-              console.log(res)
+            this.$http.post('/house_customer/house_source_insert/findBuildingListFromApp', params).then((res) => {
               this.resultList = res
             })
             break
@@ -226,6 +236,7 @@
               this.doSearch()
             } else {
               this.currentIndex = 1
+              this.doSearch()
             }
             break
           case 1:
@@ -243,6 +254,7 @@
               this.doSearch()
             } else {
               this.currentIndex = 2
+              this.doSearch()
             }
             break
           case 2:
@@ -260,6 +272,7 @@
               this.doSearch()
             } else {
               this.currentIndex = 3
+              this.doSearch()
             }
             break
           case 3:
@@ -277,6 +290,7 @@
               this.doSearch()
             } else {
               this.currentIndex = 4
+              this.doSearch()
             }
             break
           case 4:

@@ -1,19 +1,24 @@
 <template>
-  <div class="alert">
-    <div>
-      <p>{{msg}}</p>
-      <div @click="closeAlert">确定</div>
+  <transition name="scale">
+    <div class="alert" v-if="isShow">
+      <div>
+        <p>{{msg}}</p>
+        <div @click="ok">确定</div>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
   export default {
-    props: ['msg'],
-    methods: {
-      closeAlert () {
-        this.$bus.$emit('hideAlert')
+    data () {
+      return {
+        isShow: false,
+        msg: ''
       }
+    },
+    methods: {
+      ok () {}
     }
   }
 </script>

@@ -16,158 +16,158 @@
     </div>
     <div class="readonly-box">
       <span class="required">规划用途</span>
-      <span>住宅</span>
+      <span>{{guihuayongtuName}}</span>
     </div>
 
     <div class="huxing">
       <p class="title-2 title-required">户型</p>
       <div class="flex">
-        <div>
-          <span>1</span>室
+        <div @click="setPicker('shi')">
+          <span>{{huxing.shi}}</span>室
         </div>
-        <div>
-          <span>1</span>厅
+        <div @click="setPicker('ting')">
+          <span>{{huxing.ting}}</span>厅
         </div>
-        <div>
-          <span>1</span>厨
+        <div @click="setPicker('chu')">
+          <span>{{huxing.chu}}</span>厨
         </div>
-        <div>
-          <span>1</span>卫
+        <div @click="setPicker('wei')">
+          <span>{{huxing.wei}}</span>卫
         </div>
-        <div>
-          <span>1</span>阳
+        <div @click="setPicker('yang')">
+          <span>{{huxing.yang}}</span>阳
         </div>
       </div>
     </div>
     <div class="chaoxiang">
       <p class="title-2 title-required">朝向</p>
       <div class="flex cx-box">
-        <label class="lable-checkbox">
-          <input type="checkbox">东
+        <label class="lable-checkbox" v-for="(item, index) in chaoxiangList" :key="index">
+          <input type="checkbox" v-model="chaoxiangChecked[item.valueCode]"><span>{{item.valueName}}</span>
         </label>
-        <label class="lable-checkbox">
-          <input type="checkbox">西
-        </label>
-        <label class="lable-checkbox">
-          <input type="checkbox">南
-        </label>
-        <label class="lable-checkbox">
-          <input type="checkbox">北
-        </label>
+<!--        <label class="lable-checkbox">-->
+<!--          <input type="checkbox">西-->
+<!--        </label>-->
+<!--        <label class="lable-checkbox">-->
+<!--          <input type="checkbox">南-->
+<!--        </label>-->
+<!--        <label class="lable-checkbox">-->
+<!--          <input type="checkbox">北-->
+<!--        </label>-->
       </div>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName != '车库'">
       <span class="required">总楼层数</span>
-      <input type="text">
+      <input type="text" v-model="zongloucengshu">
     </div>
     <div class="big-input-box">
       <span class="required">建筑面积</span>
-      <input type="text">
+      <input type="text" v-model="jianzhumianji">
       <span>平方米</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName != '车库'">
       <span class="required">建筑年代</span>
-      <span>哈哈</span>
+      <input type="text" v-model="jianzhuniandai">
       <span>年</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('jianzhuleixing')" class="big-input-box" v-if="guihuayongtuName != '别墅' && guihuayongtuName != '写字楼' && guihuayongtuName != '工业厂房' && guihuayongtuName != '车库'">
       <span class="required">建筑类型</span>
-      <span>1</span>
+      <span>{{jianzhuleixing.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('bieshuleixing')" class="big-input-box" v-if="guihuayongtuName == '别墅'">
       <span class="required">别墅类型</span>
-      <span>ff</span>
+      <span>{{bieshuleixing.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '别墅'">
       <span class="required">叠加方式</span>
       <span>3</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('jianzhujiegou')" class="big-input-box" v-if="guihuayongtuName != '车库'">
       <span class="required">建筑结构</span>
-      <span>4</span>
+      <span>{{jianzhujiegou.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('chanquanxingzhi')" class="big-input-box">
       <span class="required">产权性质</span>
-      <span>fg</span>
+      <span>{{chanquanxingzhi.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('huxingjiegou')" class="big-input-box" v-if="guihuayongtuName == '住宅' || guihuayongtuName == '公寓（住宅类）' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="required">户型结构</span>
-      <span>34</span>
+      <span>{{huxingjiegou.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('zhuangxiuzhuangkuang')" class="big-input-box">
       <span class="required">装修状况</span>
-      <span>gefg</span>
+      <span>{{zhuangxiuzhuangkuang.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('shiyongxianzhuang')" class="big-input-box">
       <span class="required">使用现状</span>
-      <span>234</span>
+      <span>{{shiyongxianzhuang.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('laiyuanqudao')" class="big-input-box">
       <span class="required">来源渠道</span>
-      <span>fgf</span>
+      <span>{{laiyuanqudao.valueName}}</span>
     </div>
     <div class="big-input-box">
       <span class="required">押金要求</span>
-      <span>rfg</span>
+      <span></span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('tudinianxian')" class="big-input-box">
       <span class="">土地使用年限</span>
-      <span>234r</span>
+      <span>{{tudinianxian.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '住宅' || guihuayongtuName == '别墅' || guihuayongtuName == '公寓（住宅类）' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">卫生间是否带窗</span>
       <span>1234</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName != '住宅' || guihuayongtuName != '别墅' || guihuayongtuName != '公寓（住宅类）'">
       <span class="">首层层高</span>
       <input type="text">
       <span>米</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '住宅' || guihuayongtuName == '别墅' || guihuayongtuName == '公寓（住宅类）' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">是否有私家花园</span>
       <span>1234</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '住宅' || guihuayongtuName == '别墅' || guihuayongtuName == '公寓（住宅类）' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">是否有地下室</span>
       <span>rf</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '别墅' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">是否有车库</span>
       <span>er</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('gongnuan')" class="big-input-box">
       <span class="">供暖方式</span>
-      <span>ef</span>
+      <span>{{gongnuan.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('kongtiao')" class="big-input-box" v-if="guihuayongtuName != '车库'">
       <span class="">空调方式</span>
-      <span>ef</span>
+      <span>{{kongtiao.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '写字楼' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">等级</span>
       <span>ef</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '住宅' || guihuayongtuName == '别墅' || guihuayongtuName == '公寓（住宅类）' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">车位数量</span>
       <span>ef</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '公寓（商业类）' || guihuayongtuName == '商业' || guihuayongtuName == '工业厂房' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">总高</span>
       <span>ef</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '公寓（商业类）' || guihuayongtuName == '商业' || guihuayongtuName == '写字楼' || guihuayongtuName == '工业厂房' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">进深</span>
       <span>ef</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '公寓（商业类）' || guihuayongtuName == '商业' || guihuayongtuName == '写字楼' || guihuayongtuName == '工业厂房' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">净高</span>
       <span>ef</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '公寓（商业类）' || guihuayongtuName == '商业' || guihuayongtuName == '写字楼' || guihuayongtuName == '工业厂房' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">门宽</span>
       <span>ef</span>
     </div>
-    <div class="big-input-box">
+    <div class="big-input-box" v-if="guihuayongtuName == '公寓（商业类）' || guihuayongtuName == '商业' || guihuayongtuName == '写字楼' || guihuayongtuName == '工业厂房' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">实得率</span>
       <span>ef</span>
     </div>
@@ -179,17 +179,17 @@
       <span class="">楼梯</span>
       <span>ef</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('zhuangxiunianxian')" class="big-input-box">
       <span class="">装修年限</span>
-      <span>ef</span>
+      <span>{{zhuangxiunianxian.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('tengkong')" class="big-input-box">
       <span class="">腾空时间</span>
-      <span>ef</span>
+      <span>{{tengkong.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('chuzufangshi')" class="big-input-box">
       <span class="">出租方式</span>
-      <span>ef</span>
+      <span>{{chuzufangshi.valueName}}</span>
     </div>
     <div class="big-input-box">
       <span class="">预计租赁到期日</span>
@@ -251,10 +251,11 @@
       ref="picker"
       :type="picker.type"
       :data="picker.data"
+      :anchor="picker.anchor"
       @cancel="handlePickerCancel"
       @confirm="handlePickerConfirm">
     </awesome-picker>
-    <div class="bottom-btn">下一步</div>
+    <div class="bottom-btn" @click="test">下一步</div>
   </div>
 </template>
 
@@ -263,61 +264,512 @@ export default {
   data () {
     return {
       picker: {
-        data: [
-          ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's','t', 'u', 'v', 'w', 'x', 'y', 'z'],
-        ],
+        data: [],
         type: ''
       },
       ghyt: '',
       pentudizhi: '',
       zhengzaidizhi: '',
       qitadizhi: '',
-      guihuayongtu: ''
+      guihuayongtuId: '',
+      guihuayongtuName: '住宅',
+      pickerType: '',
+      huxingPicker: [],
+      jianzhuleixingPicker: [],
+      jianzhujiegouPicker : [],
+      chanquanxingzhiPicker: [],
+      zhuangxiuzhuangkuangPicker: [],
+      shiyongxianzhuangPicker: [],
+      laiyuanqudaoPicker: [],
+      tudinianxianPicker: [],
+      gongnuanPicker: [],
+      kongtiaoPicker: [],
+      zhuangxiunianxianPicker: [],
+      huxingjiegouPicker: [],
+      chuzufangshiPicker: [],
+      tengkongPicker: [],
+      bieshuleixingPicker: [],
+      chaoxiangList: [],
+      huxing: {
+        shi: '0',
+        ting: '0',
+        chu: '0',
+        wei: '0',
+        yang: '0'
+      }, // 户型值
+      chaoxiangChecked: {}, // 朝向值
+      zongloucengshu: '', // 总楼层数
+      jianzhumianji: '', // 建筑面积
+      jianzhuniandai: '', // 建筑年代
+      jianzhuleixing: {
+        valueCode: '',
+        valueName: ''
+      }, // 建筑类型
+      jianzhujiegou: {
+        valueCode: '',
+        valueName: ''
+      }, // 建筑结构
+      chanquanxingzhi: {
+        valueCode: '',
+        valueName: ''
+      }, // 产权性质
+      zhuangxiuzhuangkuang: {
+        valueCode: '',
+        valueName: ''
+      }, // 装修状况
+      shiyongxianzhuang: {
+        valueCode: '',
+        valueName: ''
+      }, // 使用现状
+      laiyuanqudao: {
+        valueCode: '',
+        valueName: ''
+      }, // 来源渠道
+      tudinianxian: {
+        valueCode: '',
+        valueName: ''
+      }, // 土地使用年限
+      gongnuan: {
+        valueCode: '',
+        valueName: ''
+      }, // 供暖方式
+      kongtiao: {
+        valueCode: '',
+        valueName: ''
+      }, // 空调方式
+      zhuangxiunianxian: {
+        valueCode: '',
+        valueName: ''
+      }, // 装修年限
+      huxingjiegou: {
+        valueCode: '',
+        valueName: ''
+      }, // 户型结构
+      chuzufangshi: {
+        valueCode: '',
+        valueName: ''
+      }, // 出租方式
+      tengkong: {
+        valueCode: '',
+        valueName: ''
+      }, // 腾空时间
+      bieshuleixing: {
+        valueCode: '',
+        valueName: ''
+      }, // 别墅类型
     }
   },
   created () {
-    this.guihuayongtu = '住宅'
-    // let params = {
-    //   currentUserId: sessionStorage.getItem('userId'),
-    //   id: JSON.parse(sessionStorage.getItem('menpaihao')).id,
-    //   businessType: sessionStorage.getItem('busiType')
-    // }
-    // this.$ajaxPost('/find_building_house_detail', params).then((res) => {
-    //   // 喷涂地址
-    //   let txt = ''
-    //   txt += res.spraypropertyname ? res.spraypropertyname : ''
-    //   txt += res.spraybuildingname ? res.spraybuildingname : ''
-    //   txt += res.sprayunitname ? res.sprayunitname : ''
-    //   txt += res.sprayfloorname ? res.sprayfloorname : ''
-    //   txt += res.sprayhouseno ? res.sprayhouseno : ''
-    //   this.pentudizhi = txt
-    //   // 证载地址
-    //   txt = res.propertyname ? res.propertyname : ''
-    //   txt += res.buildingname ? res.buildingname : ''
-    //   txt += res.unitname ? res.unitname : ''
-    //   txt += res.floorname ? res.floorname : ''
-    //   txt += res.houseno ? res.houseno : ''
-    //   this.zhengzaidizhi = txt
-    //   // 其他地址
-    //   txt = res.propertyothername ? res.propertyothername : ''
-    //   txt += res.buildingothername ? res.buildingothername : ''
-    //   txt += res.unitothersname ? res.unitothersname : ''
-    //   txt += res.otherno ? res.otherno : ''
-    //   this.qitadizhi = txt
-    //   // 规划用途
-    //   this.guihuayongtu = '住宅'
-    // })
+    let params = {
+      currentUserId: sessionStorage.getItem('userId'),
+      id: JSON.parse(sessionStorage.getItem('menpaihao')).id,
+      businessType: sessionStorage.getItem('busiType')
+    }
+    this.$http.post('/house_customer/house_source_insert/findBuildingHouseDetailFromApp', params).then((res) => {
+      console.log('++++', res)
+      let data = res
+      // 规划用途的id
+      this.guihuayongtuId = data.guihuayongtu
+      // 喷涂地址
+      let txt = ''
+      txt += data.spraypropertyname ? data.spraypropertyname : ''
+      txt += data.spraybuildingname ? data.spraybuildingname : ''
+      txt += data.sprayunitname ? data.sprayunitname : ''
+      txt += data.sprayfloorname ? data.sprayfloorname : ''
+      txt += data.sprayhouseno ? data.sprayhouseno : ''
+      this.pentudizhi = txt
+      // 证载地址
+      txt = data.propertyname ? data.propertyname : ''
+      txt += data.buildingname ? data.buildingname : ''
+      txt += data.unitname ? data.unitname : ''
+      txt += data.floorname ? data.floorname : ''
+      txt += data.houseno ? data.houseno : ''
+      this.zhengzaidizhi = txt
+      // 其他地址
+      txt = data.propertyothername ? data.propertyothername : ''
+      txt += data.buildingothername ? data.buildingothername : ''
+      txt += data.unitothersname ? data.unitothersname : ''
+      txt += data.otherno ? data.otherno : ''
+      this.qitadizhi = txt
+      // 获取规划用途字典
+      this.getGHYT()
+    })
+    this.getItemsOption('locHouseType') // 获取户型
+    this.getItemsOption('orientation') // 获取朝向
+    this.getItemsOption('buildType') // 获取建筑类型
+    this.getItemsOption('architecture') // 获取建筑结构
+    this.getItemsOption('houseown') // 获取产权性质
+    this.getItemsOption('housedecorationstatus') // 获取装修状况
+    this.getItemsOption('useStatus') // 获取使用现状
+    this.getItemsOption('customerSource') // 获取来源渠道
+    this.getItemsOption('landUseLife') // 获取土地使用年限
+    this.getItemsOption('heatingMode') // 获取供暖方式
+    this.getItemsOption('airConditionType') // 获取空调方式
+    this.getItemsOption('fitmentYear') // 获取装修年限
+    this.getItemsOption('layoutStructure') // 获取户型结构
+    this.getItemsOption('rentType') // 获取出租方式
+    this.getItemsOption('freetimeType') // 获取腾空时间
+    this.getItemsOption('villaType') // 获取别墅类型
   },
   methods: {
-    showPicker (type) {
-      this.picker.type = type
+    getGHYT () { // 获取规划用途字典
+      let params = {
+        userId: sessionStorage.getItem('userId'),
+        keyCode: 'plannedUses'
+      }
+      params = this.$qs.stringify(params)
+      let headers = {
+         'Content-Type': 'application/x-www-form-urlencoded'
+      }
+      this.$http.post('/house_customer/house_source_insert/findDictinaryValueList', params, { headers }).then((res) => {
+        res.forEach((item, index) => {
+          if (Number(item.valueCode) == Number(this.guihuayongtuId)) {
+            this.guihuayongtuName = item.valueName
+            sessionStorage.setItem('guihuayongtu', JSON.stringify({
+              id: this.guihuayongtuId,
+              name: this.guihuayongtuName
+            }))
+          }
+        })
+      })
+    },
+    getItemsOption (type) {
+      let params = {
+        userId: sessionStorage.getItem('userId'),
+        keyCode: type
+      }
+      params = this.$qs.stringify(params)
+      let headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+      this.$http.post('/house_customer/house_source_insert/findDictinaryValueList', params, { headers }).then((res) => {
+        switch (type) {
+          case 'locHouseType': // 户型
+            res.forEach((item, index) => {
+              this.huxingPicker.push(item)
+            })
+            break
+          case 'orientation': // 朝向
+            this.chaoxiangList = res
+            res.forEach((item, index) => {
+              this.chaoxiangChecked[item.valueCode] = false
+            })
+            break
+          case 'buildType': // 建筑类型
+            res.forEach((item, index) => {
+              this.jianzhuleixingPicker.push(item)
+            })
+            break
+          case 'architecture': // 建筑结构
+            res.forEach((item, index) => {
+              this.jianzhujiegouPicker.push(item)
+            })
+            break
+          case 'houseown': // 产权性质
+            res.forEach((item, index) => {
+              this.chanquanxingzhiPicker.push(item)
+            })
+            break
+          case 'housedecorationstatus': // 装修状况
+            res.forEach((item, index) => {
+              this.zhuangxiuzhuangkuangPicker.push(item)
+            })
+            break
+          case 'useStatus': // 使用现状
+            res.forEach((item, index) => {
+              this.shiyongxianzhuangPicker.push(item)
+            })
+            break
+          case 'customerSource': // 来源渠道
+            res.forEach((item, index) => {
+              this.laiyuanqudaoPicker.push(item)
+            })
+            break
+          case 'landUseLife': // 土地使用年限
+            res.forEach((item, index) => {
+              this.tudinianxianPicker.push(item)
+            })
+            break
+          case 'heatingMode': // 供暖方式
+            res.forEach((item, index) => {
+              this.gongnuanPicker.push(item)
+            })
+            break
+          case 'airConditionType': // 空调方式
+            res.forEach((item, index) => {
+              this.kongtiaoPicker.push(item)
+            })
+            break
+          case 'fitmentYear': // 装修年限
+            res.forEach((item, index) => {
+              this.zhuangxiunianxianPicker.push(item)
+            })
+            break
+          case 'layoutStructure': // 户型结构
+            res.forEach((item, index) => {
+              this.huxingjiegouPicker.push(item)
+            })
+            break
+          case 'rentType': // 出租方式
+            res.forEach((item, index) => {
+              this.chuzufangshiPicker.push(item)
+            })
+            break
+          case 'freetimeType': // 腾空时间
+            res.forEach((item, index) => {
+              this.tengkongPicker.push(item)
+            })
+            break
+          case 'villaType': // 别墅类型
+            res.forEach((item, index) => {
+              this.bieshuleixingPicker.push(item)
+            })
+            break
+        }
+
+      })
+    },
+    setPicker (type) {
+      this.pickerType = type
+      this.picker.data = []
+      let arr = []
+      switch (type) {
+        case 'shi': case 'ting': case 'chu': case 'wei': case 'yang':
+          this.huxingPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'jianzhuleixing':
+          this.jianzhuleixingPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'jianzhujiegou':
+          this.jianzhujiegouPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'chanquanxingzhi':
+          this.chanquanxingzhiPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'zhuangxiuzhuangkuang':
+          this.zhuangxiuzhuangkuangPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'shiyongxianzhuang':
+          this.shiyongxianzhuangPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'laiyuanqudao':
+          this.laiyuanqudaoPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'tudinianxian':
+          this.tudinianxianPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'gongnuan':
+          this.gongnuanPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'kongtiao':
+          this.kongtiaoPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'zhuangxiunianxian':
+          this.zhuangxiunianxianPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'huxingjiegou':
+          this.huxingjiegouPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'chuzufangshi':
+          this.chuzufangshiPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'tengkong':
+          this.tengkongPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+        case 'bieshuleixing':
+          this.bieshuleixingPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
+      }
+      this.picker.data = [arr]
       this.$refs.picker.show()
     },
     handlePickerCancel () {
 
     },
     handlePickerConfirm (val) {
-      console.log(val)
+      switch (this.pickerType) {
+        case "shi":
+          this.huxingPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.huxing.shi = item.valueCode
+            }
+          })
+          break
+        case "ting":
+          this.huxingPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.huxing.ting = item.valueCode
+            }
+          })
+          break
+        case "chu":
+          this.huxingPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.huxing.chu = item.valueCode
+            }
+          })
+          break
+        case "wei":
+          this.huxingPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.huxing.wei = item.valueCode
+            }
+          })
+          break
+        case "yang":
+          this.huxingPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.huxing.yang = item.valueCode
+            }
+          })
+          break
+        case "jianzhuleixing":
+          this.jianzhuleixingPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.jianzhuleixing.valueCode = item.valueCode
+              this.jianzhuleixing.valueName = item.valueName
+            }
+          })
+          break
+        case "jianzhujiegou":
+          this.jianzhujiegouPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.jianzhujiegou.valueCode = item.valueCode
+              this.jianzhujiegou.valueName = item.valueName
+            }
+          })
+          break
+        case "chanquanxingzhi":
+          this.chanquanxingzhiPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.chanquanxingzhi.valueCode = item.valueCode
+              this.chanquanxingzhi.valueName = item.valueName
+            }
+          })
+          break
+        case "zhuangxiuzhuangkuang":
+          this.zhuangxiuzhuangkuangPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.zhuangxiuzhuangkuang.valueCode = item.valueCode
+              this.zhuangxiuzhuangkuang.valueName = item.valueName
+            }
+          })
+          break
+        case "shiyongxianzhuang":
+          this.shiyongxianzhuangPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.shiyongxianzhuang.valueCode = item.valueCode
+              this.shiyongxianzhuang.valueName = item.valueName
+            }
+          })
+          break
+        case "laiyuanqudao":
+          this.laiyuanqudaoPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.laiyuanqudao.valueCode = item.valueCode
+              this.laiyuanqudao.valueName = item.valueName
+            }
+          })
+          break
+        case "tudinianxian":
+          this.tudinianxianPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.tudinianxian.valueCode = item.valueCode
+              this.tudinianxian.valueName = item.valueName
+            }
+          })
+          break
+        case "gongnuan":
+          this.gongnuanPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.gongnuan.valueCode = item.valueCode
+              this.gongnuan.valueName = item.valueName
+            }
+          })
+          break
+        case "kongtiao":
+          this.kongtiaoPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.kongtiao.valueCode = item.valueCode
+              this.kongtiao.valueName = item.valueName
+            }
+          })
+          break
+        case "zhuangxiunianxian":
+          this.zhuangxiunianxianPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.zhuangxiunianxian.valueCode = item.valueCode
+              this.zhuangxiunianxian.valueName = item.valueName
+            }
+          })
+          break
+        case "huxingjiegou":
+          this.huxingjiegouPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.huxingjiegou.valueCode = item.valueCode
+              this.huxingjiegou.valueName = item.valueName
+            }
+          })
+          break
+        case "chuzufangshi":
+          this.chuzufangshiPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.chuzufangshi.valueCode = item.valueCode
+              this.chuzufangshi.valueName = item.valueName
+            }
+          })
+          break
+        case "tengkong":
+          this.tengkongPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.tengkong.valueCode = item.valueCode
+              this.tengkong.valueName = item.valueName
+            }
+          })
+          break
+        case "bieshuleixing":
+          this.bieshuleixingPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.bieshuleixing.valueCode = item.valueCode
+              this.bieshuleixing.valueName = item.valueName
+            }
+          })
+          break
+      }
+    },
+    test () {
+      this.$tips('123', 2000)
+      console.log(this.chaoxiangChecked)
     }
   }
 }
