@@ -10,6 +10,7 @@ let myalert = function (text) {
     })
     document.body.appendChild(alertDom.$el)  //new一个对象，然后插入body里面
     alertDom.msg = text || ''
+    alertDom.isShow = true
     alertDom.ok = function () {
       res()
       alertDom.isShow = false

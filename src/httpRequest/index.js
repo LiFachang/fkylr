@@ -17,7 +17,7 @@ axios.defaults = {
 // 设置请求拦截器
 axios.interceptors.request.use(config => {
   // 可在这里加请求数据的动效loading
-  myVue.$loading.show('加载中123')
+  myVue.$loading.show('加载中...')
   return config;
 }, error => {
   return new Promise.reject(error);
@@ -27,11 +27,11 @@ axios.interceptors.response.use(res => {
   // 在这里取消请求数据的动效loading
   myVue.$loading.hide()
   if (res.status != 200) {
-    alert(res.statusText)
+    myVue.$alert(res.statusText)
     return Promise.reject(res.statusText)
   }
   if (res.data.code != 0) {
-    alert(res.data.msg)
+    myVue.$alert(res.data.msg)
     return Promise.reject(res.data.msg)
   }
   // if (res.data.data.code != 0) {

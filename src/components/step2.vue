@@ -78,9 +78,9 @@
       <span class="required">别墅类型</span>
       <span>{{bieshuleixing.valueName}}</span>
     </div>
-    <div class="big-input-box" v-if="guihuayongtuName == '别墅'">
+    <div @click="setPicker('diejiafangshi')" class="big-input-box" v-if="guihuayongtuName == '别墅'">
       <span class="required">叠加方式</span>
-      <span>3</span>
+      <span>{{diejiafangshi}}</span>
     </div>
     <div @click="setPicker('jianzhujiegou')" class="big-input-box" v-if="guihuayongtuName != '车库'">
       <span class="required">建筑结构</span>
@@ -114,9 +114,9 @@
       <span class="">土地使用年限</span>
       <span>{{tudinianxian.valueName}}</span>
     </div>
-    <div class="big-input-box" v-if="guihuayongtuName == '住宅' || guihuayongtuName == '别墅' || guihuayongtuName == '公寓（住宅类）' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
+    <div @click="setPicker('weishengjiandaichuang')" class="big-input-box" v-if="guihuayongtuName == '住宅' || guihuayongtuName == '别墅' || guihuayongtuName == '公寓（住宅类）' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">卫生间是否带窗</span>
-      <span>1234</span>
+      <span>{{weishengjiandaichuang.valueName}}</span>
     </div>
     <div class="big-input-box" v-if="guihuayongtuName != '住宅' || guihuayongtuName != '别墅' || guihuayongtuName != '公寓（住宅类）'">
       <span class="">首层层高</span>
@@ -149,7 +149,7 @@
     </div>
     <div class="big-input-box" v-if="guihuayongtuName == '住宅' || guihuayongtuName == '别墅' || guihuayongtuName == '公寓（住宅类）' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">车位数量</span>
-      <span>ef</span>
+      <input type="text" v-model="chewei">
     </div>
     <div class="big-input-box" v-if="guihuayongtuName == '公寓（商业类）' || guihuayongtuName == '商业' || guihuayongtuName == '工业厂房' || guihuayongtuName == '综合' || guihuayongtuName == '其他'">
       <span class="">总高</span>
@@ -191,9 +191,9 @@
       <span class="">出租方式</span>
       <span>{{chuzufangshi.valueName}}</span>
     </div>
-    <div class="big-input-box">
+    <div @click="setPicker('daoqiri')" class="big-input-box">
       <span class="">预计租赁到期日</span>
-      <span>ef</span>
+      <span>{{daoqiri}}</span>
     </div>
     <div class="big-input-box">
       <span class="">录入方式</span>
@@ -251,9 +251,12 @@
       ref="picker"
       :type="picker.type"
       :data="picker.data"
-      :anchor="picker.anchor"
-      @cancel="handlePickerCancel"
       @confirm="handlePickerConfirm">
+    </awesome-picker>
+    <awesome-picker
+      ref="datePicker"
+      type="date"
+      @confirm="handleDatePickerConfirm">
     </awesome-picker>
     <div class="bottom-btn" @click="test">下一步</div>
   </div>
@@ -265,7 +268,7 @@ export default {
     return {
       picker: {
         data: [],
-        type: ''
+        type: '' // date time string
       },
       ghyt: '',
       pentudizhi: '',
@@ -289,6 +292,8 @@ export default {
       chuzufangshiPicker: [],
       tengkongPicker: [],
       bieshuleixingPicker: [],
+      diejiafangshiPicker: [],
+      shifouPicker: [],
       chaoxiangList: [],
       huxing: {
         shi: '0',
@@ -357,6 +362,12 @@ export default {
         valueCode: '',
         valueName: ''
       }, // 别墅类型
+      diejiafangshi: {
+        valueCode: '',
+        valueName: ''
+      }, // 叠加方式
+      chewei: '', //车位数量
+      daoqiri: '', // 预计租赁到期日
     }
   },
   created () {
@@ -394,22 +405,30 @@ export default {
       // 获取规划用途字典
       this.getGHYT()
     })
-    this.getItemsOption('locHouseType') // 获取户型
-    this.getItemsOption('orientation') // 获取朝向
-    this.getItemsOption('buildType') // 获取建筑类型
-    this.getItemsOption('architecture') // 获取建筑结构
-    this.getItemsOption('houseown') // 获取产权性质
-    this.getItemsOption('housedecorationstatus') // 获取装修状况
-    this.getItemsOption('useStatus') // 获取使用现状
-    this.getItemsOption('customerSource') // 获取来源渠道
-    this.getItemsOption('landUseLife') // 获取土地使用年限
-    this.getItemsOption('heatingMode') // 获取供暖方式
-    this.getItemsOption('airConditionType') // 获取空调方式
-    this.getItemsOption('fitmentYear') // 获取装修年限
-    this.getItemsOption('layoutStructure') // 获取户型结构
-    this.getItemsOption('rentType') // 获取出租方式
-    this.getItemsOption('freetimeType') // 获取腾空时间
-    this.getItemsOption('villaType') // 获取别墅类型
+    let arrApi = [
+      'locHouseType', // 获取户型
+      'orientation', // 获取朝向
+      'buildType', // 获取建筑类型
+      'architecture', // 获取建筑结构
+      'houseown', // 获取产权性质
+      'housedecorationstatus', // 获取装修状况
+      'useStatus', // 获取使用现状
+      'customerSource', // 获取来源渠道
+      'landUseLife', // 获取土地使用年限
+      'heatingMode', // 获取供暖方式
+      'airConditionType', // 获取空调方式
+      'fitmentYear', // 获取装修年限
+      'layoutStructure', // 获取户型结构
+      'rentType', // 获取出租方式
+      'freetimeType', // 获取腾空时间
+      'villaType', // 获取别墅类型
+      'BDStackeWay', // 获取叠加方式
+      'haveOrNot', // 获取是否
+    ]
+    arrApi.forEach((item, index) => {
+      this.getItemsOption(item)
+    })
+
   },
   methods: {
     getGHYT () { // 获取规划用途字典
@@ -525,6 +544,11 @@ export default {
               this.bieshuleixingPicker.push(item)
             })
             break
+          case 'BDStackeWay': // 叠加方式
+            res.forEach((item, index) => {
+              this.diejiafangshiPicker.push(item)
+            })
+            break
         }
 
       })
@@ -533,6 +557,7 @@ export default {
       this.pickerType = type
       this.picker.data = []
       let arr = []
+      this.picker.type = 'String'
       switch (type) {
         case 'shi': case 'ting': case 'chu': case 'wei': case 'yang':
           this.huxingPicker.forEach((item, index) => {
@@ -609,12 +634,19 @@ export default {
             arr.push(item.valueName)
           })
           break
+        case 'daoqiri':
+          this.$refs.datePicker.show()
+          break
+        case 'diejiafangshi':
+          this.diejiafangshiPicker.forEach((item, index) => {
+            arr.push(item.valueName)
+          })
+          break
       }
-      this.picker.data = [arr]
-      this.$refs.picker.show()
-    },
-    handlePickerCancel () {
-
+      if (type != 'daoqiri') {
+        this.picker.data = [arr]
+        this.$refs.picker.show()
+      }
     },
     handlePickerConfirm (val) {
       switch (this.pickerType) {
@@ -765,7 +797,26 @@ export default {
             }
           })
           break
+        case "daoqiri":
+          this.daoqiri = val
+          break
+        case "diejiafangshi":
+          this.diejiafangshiPicker.forEach((item, index) => {
+            if (item.valueName == val[0].value) {
+              this.diejiafangshi.valueCode = item.valueCode
+              this.diejiafangshi.valueName = item.valueName
+            }
+          })
+          break
       }
+    },
+    handleDatePickerConfirm (val) {
+      switch (this.pickerType) {
+        case "daoqiri":
+          this.daoqiri = `${val[0].value}${val[1].value}${val[2].value}`
+          break
+      }
+
     },
     test () {
       this.$tips('123', 2000)

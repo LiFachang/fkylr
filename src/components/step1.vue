@@ -88,8 +88,21 @@
     },
     methods: {
       nextStep () {
-        this.$alert('1234').then(() => {
-          console.log(1)
+        let params = {
+          buildingHouseId: JSON.parse(sessionStorage.getItem('menpaihao')).id,
+          businessType: sessionStorage.getItem('busiType'),
+          currentUserId: sessionStorage.getItem('userId'),
+          directoryId: JSON.parse(sessionStorage.getItem('xiaoqu')).id
+        }
+        this.$http.post('/house_customer/house_source_insert/checkHouseValidityFromApp', params).then( res => {
+          // 注释了
+          // if (!res.result) {
+          //   this.$alert(res.msg)
+          //   return
+          // }
+          this.$router.push({
+            name: 'step2'
+          })
         })
       },
       navTo (name, index, bool) {
